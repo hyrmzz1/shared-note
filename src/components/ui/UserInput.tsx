@@ -1,18 +1,38 @@
+import { forwardRef } from "react";
+
 interface UserInputProps {
   type?: string; // 초기값(text) 지정했으므로 optional
-  name: string;
   placeholder: string;
+  isError?: boolean;
+  errorMessage?: string;
+  // name은 react-hook-form의 register에서 제공
 }
 
-const UserInput = ({ type = "text", name, placeholder }: UserInputProps) => {
+const UserInput = forwardRef<HTMLInputElement, UserInputProps>((props, ref) => {
+  const { type = "text", placeholder, isError, errorMessage, ...rest } = props;
+
   return (
-    <input
-      type={type}
-      name={name}
-      placeholder={placeholder}
-      className="appearance-none border focus:bg-white focus:border-blue focus:outline-none rounded-md w-full text-text_default px-4 py-5 bg-gray50 border-gray400"
-    ></input>
+    <>
+      <input
+        type={type}
+        placeholder={placeholder}
+        ref={ref}
+        autoComplete="off"
+        className={`appearance-none bg-gray50 focus:bg-white focus:outline-none border rounded-md w-full px-4 py-5 ${
+          isError
+            ? "text-text_error border-red focus:border-red"
+            : "text-text_default border-gray400 focus:border-blue"
+        }`}
+        {...rest}
+      ></input>
+
+      {isError && errorMessage && (
+        <p role="alert" className="text-text_error text-sm">
+          {errorMessage}
+        </p>
+      )}
+    </>
   );
-};
+});
 
 export default UserInput;
