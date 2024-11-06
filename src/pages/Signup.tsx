@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import UserBtn from "../components/ui/UserBtn";
 import UserInput from "../components/ui/UserInput";
 import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 
 const Signup = () => {
   const {
@@ -9,9 +10,14 @@ const Signup = () => {
     handleSubmit,
     formState: { isSubmitting, isSubmitted, errors },
     watch,
+    trigger,
   } = useForm();
   const onSubmit = (data: any) => console.log(data);
   const currPassword = watch("password");
+
+  useEffect(() => {
+    trigger("passwordConfirm"); // passwordConfirm 필드의 유효성 검사 다시 실행
+  }, [currPassword, trigger]);
 
   return (
     <>
