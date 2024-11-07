@@ -16,7 +16,9 @@ const Signup = () => {
   const currPassword = watch("password");
 
   useEffect(() => {
-    trigger("passwordConfirm"); // passwordConfirm 필드의 유효성 검사 다시 실행
+    if (isSubmitted) {
+      trigger("passwordConfirm"); // passwordConfirm 필드의 유효성 검사 다시 실행
+    }
   }, [currPassword, trigger]);
 
   return (
