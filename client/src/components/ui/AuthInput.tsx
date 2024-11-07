@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-interface UserInputProps {
+interface AuthInputProps {
   type?: string; // 초기값(text) 지정했으므로 optional
   placeholder: string;
   isError?: boolean;
@@ -8,7 +8,7 @@ interface UserInputProps {
   // name은 react-hook-form의 register에서 제공
 }
 
-const UserInput = forwardRef<HTMLInputElement, UserInputProps>((props, ref) => {
+const AuthInput = forwardRef<HTMLInputElement, AuthInputProps>((props, ref) => {
   const { type = "text", placeholder, isError, errorMessage, ...rest } = props;
 
   return (
@@ -35,4 +35,4 @@ const UserInput = forwardRef<HTMLInputElement, UserInputProps>((props, ref) => {
   );
 });
 
-export default UserInput;
+export default AuthInput;

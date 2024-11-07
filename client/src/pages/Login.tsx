@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import UserBtn from "../components/ui/UserBtn";
-import UserInput from "../components/ui/UserInput";
+import AuthBtn from "../components/ui/AuthBtn";
+import AuthInput from "../components/ui/AuthInput";
 import { useForm } from "react-hook-form";
 
 const Login = () => {
@@ -17,7 +17,7 @@ const Login = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col space-y-4 my-6"
       >
-        <UserInput
+        <AuthInput
           type="email"
           placeholder="이메일"
           aria-invalid={
@@ -33,7 +33,7 @@ const Login = () => {
             },
           })}
         />
-        <UserInput
+        <AuthInput
           type="password"
           placeholder="비밀번호"
           aria-invalid={
@@ -46,7 +46,7 @@ const Login = () => {
             minLength: { value: 8, message: "비밀번호는 8자 이상입니다." },
           })}
         />
-        <UserBtn text="로그인" disabled={isSubmitting} />
+        <AuthBtn text="로그인" disabled={isSubmitting} />
       </form>
 
       <div className="flex justify-center text-sm text-text_sub">
