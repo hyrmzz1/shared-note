@@ -1,15 +1,61 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthBtn from "../components/ui/AuthBtn";
 import AuthInput from "../components/ui/AuthInput";
 import { useForm } from "react-hook-form";
+import { UserInput } from "../types/user";
+import instance from "../api/instance";
+import { AxiosError } from "axios";
+import { useEffect } from "react";
 
 const Login = () => {
+  const navigator = useNavigate();
+
+  // 토큰 이미 존재하면 루트 경로로 리다이렉트
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigator("/");
+    }
+  }, []);
+
+  const onSubmit = async (data: UserInput) => {
+    try {
+      const response = await instance.post("users/login", {
+        email: data.email,
+        password: data.password,
+      });
+
+      const token = response.data.token;
+      localStorage.setItem("token", token);
+
+      if (response.status === 200) {
+        alert("로그인 성공! 환영합니다. 🎉");
+        navigator("/");
+      }
+    } catch (error) {
+      const axiosError = error as AxiosError;
+
+      if (axiosError.response) {
+        // 서버에서 보낸 에러 메세지
+        if (axiosError.response.status === 400) {
+          alert("해당 정보로 가입된 계정이 존재하지 않습니다.");
+        } else {
+          const errorMessage = (axiosError.response.data as { message: string })
+            .message;
+          alert(`오류 발생! ${errorMessage}`);
+        }
+      } else {
+        // 네트워크 오류 또는 예기치 않은 오류
+        alert("문제가 발생했습니다. 잠시 후 다시 시도해 주세요.");
+      }
+    }
+  };
+
   const {
     register,
     handleSubmit,
     formState: { isSubmitting, isSubmitted, errors },
-  } = useForm();
-  const onSubmit = (data: any) => console.log(data);
+  } = useForm<UserInput>();
 
   return (
     <>
