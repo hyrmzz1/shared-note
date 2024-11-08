@@ -1,18 +1,56 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthBtn from "../components/ui/AuthBtn";
 import AuthInput from "../components/ui/AuthInput";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
+import { UserInput } from "../types/user";
+import client from "../api/client";
+import { AxiosError } from "axios";
+
+type SignupInput = UserInput & { passwordConfirm: string };
 
 const Signup = () => {
+  const navigate = useNavigate();
+
+  const onSubmit = async (data: SignupInput) => {
+    try {
+      const response = await client.post("users/create", {
+        email: data.email,
+        password: data.password,
+      });
+
+      if (response.status === 200) {
+        alert("회원가입 성공! 로그인 후 서비스를 이용해 주세요.");
+        navigate("/auth/login");
+      }
+    } catch (error) {
+      const axiosError = error as AxiosError;
+
+      if (axiosError.response) {
+        // 서버에서 보낸 에러 메세지
+        if (axiosError.response.status === 409) {
+          alert(
+            "이미 사용 중인 이메일입니다. 다른 이메일을 입력하거나 로그인하세요."
+          );
+        } else {
+          const errorMessage = (axiosError.response.data as { message: string })
+            .message;
+          alert(`오류 발생! ${errorMessage}`);
+        }
+      } else {
+        // 네트워크 오류 또는 예기치 않은 오류
+        alert("회원가입 중 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.");
+      }
+    }
+  };
+
   const {
     register,
     handleSubmit,
     formState: { isSubmitting, isSubmitted, errors },
     watch,
     trigger,
-  } = useForm();
-  const onSubmit = (data: any) => console.log(data);
+  } = useForm<SignupInput>();
   const currPassword = watch("password");
 
   useEffect(() => {

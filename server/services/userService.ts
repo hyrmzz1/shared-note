@@ -1,5 +1,5 @@
 import { create, db } from "../models/db";
-import type { User } from "../../types/users";
+import type { User } from "../types/users";
 
 export const createUser = async ({
   email,
