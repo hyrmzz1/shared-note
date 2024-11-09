@@ -1,46 +1,7 @@
-import {
-  createBrowserRouter,
-  Navigate,
-  RouterProvider,
-} from "react-router-dom";
-import AuthLayout from "./components/layout/AuthLayout";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import TodoLayout from "./components/layout/TodoLayout";
+import AppRouter from "./router/AppRouter";
 
 const App = () => {
-  const router = createBrowserRouter([
-    {
-      path: "/auth",
-      element: <AuthLayout />,
-      children: [
-        {
-          index: true,
-          element: <Navigate to="login" replace />,
-        },
-        {
-          path: "login",
-          element: <Login />,
-        },
-        {
-          path: "signup",
-          element: <Signup />,
-        },
-      ],
-    },
-    {
-      path: "/",
-      element: <TodoLayout />,
-      // children: [
-      //   {
-      //     path: "",
-      //     element: ,
-      //   },
-      // ],
-    },
-  ]);
-
-  return <RouterProvider router={router} />;
+  return <AppRouter />;
 };
 
 export default App;
