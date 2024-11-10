@@ -5,18 +5,9 @@ import { useForm } from "react-hook-form";
 import { UserInput } from "../types/user";
 import instance from "../api/instance";
 import { AxiosError } from "axios";
-import { useEffect } from "react";
 
 const Login = () => {
   const navigator = useNavigate();
-
-  // 토큰 이미 존재하면 루트 경로로 리다이렉트
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      navigator("/");
-    }
-  }, []);
 
   const onSubmit = async (data: UserInput) => {
     try {
