@@ -8,9 +8,9 @@ const AuthLayout = () => {
     <main className="w-screen h-screen flex justify-center items-center bg-gray200">
       <div className="w-[30rem] p-6 rounded-lg bg-white shadow-md">
         <div className="text-center space-y-1">
-          <p className="font-bold text-[2rem]">AUTH TODO</p>
+          <p className="font-bold text-[2rem]">Shared Note</p>
           <p className="font-semibold">
-            {page} 후 나만의 TODO를 관리해 보세요! ✅
+            {page} 후 함께 메모를 기록해 보세요! 📚
           </p>
         </div>
         <Outlet />
