@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import githubIcon from "../../assets/mark-github.svg";
+import GithubIcon from "../../assets/mark-github.svg?react";
 
 const Gnb = () => {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ const Gnb = () => {
     <div className="flex justify-between px-5 py-4 border-b-2 border-border_disabled drop-shadow-sm text-text_default">
       <div className="flex items-center space-x-2">
         <a href="https://github.com/hyrmzz1/auth-todo.git" target="_blank">
-          <img src={githubIcon} alt="github logo" className="w-7 h-7"></img>
+          <GithubIcon className="w-7 h-7" />
         </a>
         <p className="font-bold text-[1.5rem]">Shared Note</p>
       </div>
