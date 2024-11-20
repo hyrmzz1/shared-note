@@ -1,5 +1,5 @@
 import { create, Data, db, update } from "../models/db";
-import type { Todo, TodoInput } from "../../types/todos";
+import type { Todo, TodoInput } from "../types/todos";
 
 export const createTodo = async ({ title, content }: TodoInput) => {
   const todo = create<Todo>({ title, content });

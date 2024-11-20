@@ -9,7 +9,7 @@ import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import ProtectedRoute from "./ProtectedRoute";
 import TodoLayout from "../components/layout/TodoLayout";
-import TodoList from "../pages/TodoList";
+import TodoApp from "../pages/TodoApp";
 
 const router = createBrowserRouter([
   {
@@ -35,7 +35,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/",
+    path: "/todos",
     element: (
       <ProtectedRoute>
         <TodoLayout />
@@ -44,9 +44,17 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <TodoList />,
+        element: <TodoApp />,
+      },
+      {
+        path: ":id", // 특정 Todo 상세 보기
+        element: <TodoApp />, // 수정 필요
       },
     ],
+  },
+  {
+    path: "/",
+    element: <Navigate to="/todos" replace />,
   },
 ]);
 
