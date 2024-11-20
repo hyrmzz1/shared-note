@@ -1,31 +1,13 @@
 import { useForm } from "react-hook-form";
 import { TodoInput } from "../../types/todos";
-import instance from "../../api/instance";
-import { useNavigate } from "react-router-dom";
+import useTodoStore from "../../stores/useTodoStore";
 
 const TodoForm = () => {
-  const navigator = useNavigate();
+  const { addTodo } = useTodoStore();
 
   const onSubmit = async (data: TodoInput) => {
-    const userToken = localStorage.getItem("token");
-    if (!userToken) {
-      alert("로그인 상태가 아닙니다. 다시 로그인해주세요.");
-      navigator("/auth");
-      return;
-    }
-
     try {
-      const response = await instance.post<TodoInput>(
-        "/todos",
-        {
-          title: data.title,
-          content: data.content,
-        },
-        {
-          headers: { Authorization: `Bearer ${userToken}` },
-        }
-      );
-
+      await addTodo(data);
       reset(); // 폼 초기화
     } catch (error) {
       // console.log("에러 발생:", error);
