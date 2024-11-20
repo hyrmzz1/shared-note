@@ -3,6 +3,7 @@ import AuthBtn from "../components/ui/AuthBtn";
 import AuthInput from "../components/ui/AuthInput";
 import { useForm } from "react-hook-form";
 import { UserInput } from "../types/user";
+import { AuthResponse } from "../types/auth";
 import instance from "../api/instance";
 import { AxiosError } from "axios";
 
@@ -11,7 +12,7 @@ const Login = () => {
 
   const onSubmit = async (data: UserInput) => {
     try {
-      const response = await instance.post("users/login", {
+      const response = await instance.post<AuthResponse>("users/login", {
         email: data.email,
         password: data.password,
       });
