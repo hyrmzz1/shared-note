@@ -1,10 +1,14 @@
-import useTodoStore from "../../stores/useTodoStore";
 import { useEffect } from "react";
-import AddIcon from "../../assets/add-circle.svg?react";
 import TodoItem from "./TodoItem";
+import useTodoStore from "../../stores/useTodoStore";
+import useTodoAppStore from "../../stores/useTodoAppStore";
+import AddIcon from "../../assets/add-circle.svg?react";
 
 const TodoList = () => {
-  const { todos, fetchTodos } = useTodoStore();
+  const todos = useTodoStore((state) => state.todos);
+  const fetchTodos = useTodoStore((state) => state.fetchTodos);
+  const setViewMode = useTodoAppStore((state) => state.setViewMode);
+  const setSelectedTodoId = useTodoAppStore((state) => state.setSelectedTodoId);
   const total = todos.length;
 
   useEffect(() => {
@@ -16,15 +20,21 @@ const TodoList = () => {
       {/* todo) 스크롤 구현, 아이템 없을 떄 조건부 렌더링 */}
       <div className="flex justify-between bg-gray300">
         <p>total: {total}</p>
-
-        {/* onClick -> TodoForm 띄우기 */}
-        <button>
+        <button onClick={() => setViewMode("form")}>
           <AddIcon className="w-7 h-7" />
         </button>
       </div>
 
       {todos.map((item) => (
-        <TodoItem item={item} key={item.id} />
+        <div
+          key={item.id}
+          onClick={() => {
+            setSelectedTodoId(item.id);
+            setViewMode("details");
+          }}
+        >
+          <TodoItem item={item} />
+        </div>
       ))}
     </div>
   );
