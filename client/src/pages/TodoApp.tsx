@@ -5,10 +5,12 @@ import useTodoAppStore from "../stores/useTodoAppStore";
 
 const TodoApp = () => {
   const viewMode = useTodoAppStore((state) => state.viewMode);
+  const selectedTodoId = useTodoAppStore((state) => state.selectedTodoId);
 
   const rightPanel = () => {
     if (viewMode === "form") return <TodoForm />;
-    if (viewMode === "details") return <TodoDetails />;
+    if (viewMode === "details" && selectedTodoId)
+      return <TodoDetails todoId={selectedTodoId} />;
     return null;
   };
 

@@ -4,18 +4,15 @@ type viewMode = "list" | "form" | "details";
 
 interface TodoAppStore {
   viewMode: viewMode;
-  selectedTodoId: null | string;
+  selectedTodoId: string | null;
   setViewMode: (mode: viewMode) => void;
-  setSelectedTodoId: (id: string) => void;
+  setSelectedTodoId: (id: string | null) => void;
 }
 
 const useTodoAppStore = create<TodoAppStore>((set) => ({
   viewMode: "list",
   selectedTodoId: null,
-  setViewMode: (mode) =>
-    set({
-      viewMode: mode,
-    }),
+  setViewMode: (mode) => set({ viewMode: mode }),
   setSelectedTodoId: (id) => set({ selectedTodoId: id }),
 }));
 
