@@ -2,10 +2,34 @@ import TodoList from "../components/ui/TodoList";
 import TodoForm from "../components/ui/TodoForm";
 import TodoDetails from "../components/ui/TodoDetails";
 import useTodoAppStore from "../stores/useTodoAppStore";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 const TodoApp = () => {
   const viewMode = useTodoAppStore((state) => state.viewMode);
   const selectedTodoId = useTodoAppStore((state) => state.selectedTodoId);
+  const setViewMode = useTodoAppStore((state) => state.setViewMode);
+  const setSelectedTodoId = useTodoAppStore((state) => state.setSelectedTodoId);
+
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  // URL에 있는 `:id`를 상태로 초기화
+  useEffect(() => {
+    if (id && viewMode !== "details") {
+      setViewMode("details");
+      setSelectedTodoId(id);
+    }
+  }, [id, viewMode, setViewMode, setSelectedTodoId]);
+
+  // 상태에 따라 URL 변경
+  useEffect(() => {
+    if (viewMode === "details" && selectedTodoId) {
+      navigate(`/todos/${selectedTodoId}`);
+    } else if (viewMode === "list") {
+      navigate("/todos");
+    }
+  }, [viewMode, selectedTodoId, navigate]);
 
   const rightPanel = () => {
     if (viewMode === "form") return <TodoForm />;

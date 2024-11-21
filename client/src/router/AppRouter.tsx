@@ -48,7 +48,7 @@ const router = createBrowserRouter([
       },
       {
         path: ":id", // 특정 Todo 상세 보기
-        element: <TodoApp />, // 수정 필요
+        element: <TodoApp />,
       },
     ],
   },
