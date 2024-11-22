@@ -11,10 +11,11 @@ const TodoDetails = ({ todoId }: TodoDetailsProps) => {
   const setSelectedTodoId = useTodoAppStore((state) => state.setSelectedTodoId);
   const fetchTodoById = useTodoStore((state) => state.fetchTodoById);
   const selectedTodo = useTodoStore((state) => state.selectedTodo);
+  const deleteTodoFromList = useTodoStore((state) => state.deleteTodoFromList);
   const [loading, setLoading] = useState(false);
 
   const fetchTodo = async () => {
-    if (loading) return;
+    if (!todoId || loading) return;
     setLoading(true);
 
     try {
@@ -26,6 +27,18 @@ const TodoDetails = ({ todoId }: TodoDetailsProps) => {
     }
   };
 
+  const handleDelete = async () => {
+    if (!todoId) return;
+
+    try {
+      await deleteTodoFromList(todoId);
+      setViewMode("list");
+    } catch (error) {
+      console.log("Error deleting todo:", error);
+    }
+  };
+
+  // 데이터 로드
   useEffect(() => {
     fetchTodo();
   }, [todoId]);
@@ -45,7 +58,13 @@ const TodoDetails = ({ todoId }: TodoDetailsProps) => {
         <h3>{selectedTodo?.content}</h3>
       </div>
       <div className="flex justify-end">
-        <button>삭제하기</button>
+        <button
+          onClick={() => {
+            handleDelete();
+          }}
+        >
+          삭제하기
+        </button>
         <button>수정하기</button>
       </div>
     </>

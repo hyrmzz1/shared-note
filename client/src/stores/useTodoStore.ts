@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { Todo, TodoInput } from "../types/todos";
-import { createTodo, getTodoById, getTodos } from "../api/todoApi";
+import { createTodo, getTodoById, getTodos, deleteTodo } from "../api/todoApi";
 
 interface TodoStore {
   todos: Todo[];
@@ -8,6 +8,7 @@ interface TodoStore {
   addTodo: (todoInput: TodoInput) => Promise<void>;
   fetchTodos: () => Promise<void>;
   fetchTodoById: (id: string) => Promise<void>;
+  deleteTodoFromList: (id: string) => Promise<void>;
 }
 
 const useTodoStore = create<TodoStore>((set, get) => ({
@@ -21,7 +22,6 @@ const useTodoStore = create<TodoStore>((set, get) => ({
       set((prev) => ({
         todos: [...prev.todos, newTodo],
       }));
-      await get().fetchTodos();
     } catch (error) {
       console.error("addTodo 에러 발생", error);
       throw error;
@@ -38,13 +38,27 @@ const useTodoStore = create<TodoStore>((set, get) => ({
     }
   },
 
-  //read (todo detail)
+  // read (todo detail)
   fetchTodoById: async (id: string) => {
     try {
       const todo = await getTodoById(id);
       set({ selectedTodo: todo });
     } catch (error) {
       console.error("fetchTodoById 에러 발생", error);
+      throw error;
+    }
+  },
+
+  // delete
+  deleteTodoFromList: async (id: string) => {
+    try {
+      await deleteTodo(id);
+      set((prev) => ({
+        todos: prev.todos.filter((todo) => todo.id !== id),
+        selectedTodo: null,
+      }));
+    } catch (error) {
+      console.error("deleteTodoFromList 에러 발생", error);
       throw error;
     }
   },

@@ -36,3 +36,11 @@ export const getTodoById = async (id: string): Promise<Todo> => {
 
   return response.data.data;
 };
+
+export const deleteTodo = async (id: string): Promise<void> => {
+  const userToken = getUserToken();
+
+  await instance.delete<{ data: Todo }>(`/todos/${id}`, {
+    headers: { Authorization: `Bearer ${userToken}` },
+  });
+};
