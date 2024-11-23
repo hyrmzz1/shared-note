@@ -15,6 +15,7 @@ const TodoDetails = ({ todoId }: TodoDetailsProps) => {
   const selectedTodo = useTodoStore((state) => state.selectedTodo);
   const deleteTodoFromList = useTodoStore((state) => state.deleteTodoFromList);
   const updateTodoFromList = useTodoStore((state) => state.updateTodoFromList);
+
   const [loading, setLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -22,7 +23,7 @@ const TodoDetails = ({ todoId }: TodoDetailsProps) => {
     register,
     handleSubmit,
     formState: { isSubmitting, isSubmitted, errors },
-    // reset,
+    reset,
   } = useForm<TodoInput>();
 
   const fetchTodo = async () => {
@@ -41,11 +42,9 @@ const TodoDetails = ({ todoId }: TodoDetailsProps) => {
   const handleUpdate = async (data: TodoInput) => {
     if (!todoId) return;
 
-    console.log("수정 요청 시작:", data);
     try {
       await updateTodoFromList(todoId, data);
       setIsEditing(false);
-      console.log("수정 완료:", data);
     } catch (error) {
       alert("에러 발생! 다시 시도해주세요.");
     }
@@ -62,7 +61,22 @@ const TodoDetails = ({ todoId }: TodoDetailsProps) => {
     }
   };
 
-  // 데이터 로드
+  // 수정 모드 초기값 설정
+  useEffect(() => {
+    if (isEditing && selectedTodo) {
+      reset({
+        title: selectedTodo.title,
+        content: selectedTodo.content,
+      });
+    }
+  }, [isEditing, selectedTodo, reset]);
+
+  // selectedTodo 변경 시 수정 모드 종료
+  useEffect(() => {
+    setIsEditing(false);
+  }, [selectedTodo]);
+
+  // todoId 변경 시 데이터 로드
   useEffect(() => {
     fetchTodo();
   }, [todoId]);
@@ -82,7 +96,6 @@ const TodoDetails = ({ todoId }: TodoDetailsProps) => {
           <input
             type="text"
             placeholder="제목을 입력해주세요."
-            defaultValue={selectedTodo?.title}
             {...register("title", { required: true })}
             aria-invalid={
               isSubmitted ? (errors.title ? true : false) : undefined
@@ -94,7 +107,6 @@ const TodoDetails = ({ todoId }: TodoDetailsProps) => {
           <input
             type="text"
             placeholder="내용을 입력해주세요."
-            defaultValue={selectedTodo?.content}
             {...register("content", { required: true })}
             aria-invalid={
               isSubmitted ? (errors.content ? true : false) : undefined
@@ -107,8 +119,7 @@ const TodoDetails = ({ todoId }: TodoDetailsProps) => {
           ></input>
           <button
             type="button"
-            onClick={(e) => {
-              e.preventDefault();
+            onClick={() => {
               setIsEditing(false);
             }}
           >
