@@ -1,6 +1,6 @@
 import TodoList from "../components/ui/TodoList";
-import TodoForm from "../components/ui/TodoForm";
-import TodoDetails from "../components/ui/TodoDetails";
+import CreateTodoView from "../components/ui/CreateTodoView";
+import TodoDetailsView from "../components/ui/TodoDetailsView";
 import useTodoAppStore from "../stores/useTodoAppStore";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -32,9 +32,9 @@ const TodoApp = () => {
   }, [viewMode, selectedTodoId, navigate]);
 
   const rightPanel = () => {
-    if (viewMode === "form") return <TodoForm />;
+    if (viewMode === "form") return <CreateTodoView />;
     if (viewMode === "details" && selectedTodoId)
-      return <TodoDetails todoId={selectedTodoId} />;
+      return <TodoDetailsView todoId={selectedTodoId} />;
     return null;
   };
 

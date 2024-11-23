@@ -4,11 +4,11 @@ import useTodoStore from "../../stores/useTodoStore";
 import { TodoInput } from "../../types/todos";
 import { useForm } from "react-hook-form";
 
-interface TodoDetailsProps {
+interface TodoDetailsViewProps {
   todoId: string;
 }
 
-const TodoDetails = ({ todoId }: TodoDetailsProps) => {
+const TodoDetailsView = ({ todoId }: TodoDetailsViewProps) => {
   const setViewMode = useTodoAppStore((state) => state.setViewMode);
   const setSelectedTodoId = useTodoAppStore((state) => state.setSelectedTodoId);
   const fetchTodoById = useTodoStore((state) => state.fetchTodoById);
@@ -155,4 +155,4 @@ const TodoDetails = ({ todoId }: TodoDetailsProps) => {
   );
 };
 
-export default TodoDetails;
+export default TodoDetailsView;

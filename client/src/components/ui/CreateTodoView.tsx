@@ -3,7 +3,7 @@ import { TodoInput } from "../../types/todos";
 import useTodoStore from "../../stores/useTodoStore";
 import useTodoAppStore from "../../stores/useTodoAppStore";
 
-const TodoForm = () => {
+const CreateTodoView = () => {
   // const { addTodo } = useTodoStore(); // selector 없이 호출해 사용할 경우 store 전체를 구독하므로 addTodo 외의 state가 변경되어도 의도치않은 리렌더링이 발생함.
   const addTodo = useTodoStore((state) => state.addTodo);
   const setViewMode = useTodoAppStore((state) => state.setViewMode);
@@ -64,4 +64,4 @@ const TodoForm = () => {
   );
 };
 
-export default TodoForm;
+export default CreateTodoView;
