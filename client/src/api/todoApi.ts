@@ -37,6 +37,23 @@ export const getTodoById = async (id: string): Promise<Todo> => {
   return response.data.data;
 };
 
+export const updateTodo = async (
+  id: string,
+  todoInput: TodoInput
+): Promise<Todo> => {
+  const userToken = getUserToken();
+
+  const response = await instance.put<{ data: Todo }>(
+    `/todos/${id}`,
+    todoInput,
+    {
+      headers: { Authorization: `Bearer ${userToken}` },
+    }
+  );
+
+  return response.data.data;
+};
+
 export const deleteTodo = async (id: string): Promise<void> => {
   const userToken = getUserToken();
 

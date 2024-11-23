@@ -1,6 +1,12 @@
 import { create } from "zustand";
 import { Todo, TodoInput } from "../types/todos";
-import { createTodo, getTodoById, getTodos, deleteTodo } from "../api/todoApi";
+import {
+  createTodo,
+  getTodoById,
+  getTodos,
+  deleteTodo,
+  updateTodo,
+} from "../api/todoApi";
 
 interface TodoStore {
   todos: Todo[];
@@ -8,10 +14,11 @@ interface TodoStore {
   addTodo: (todoInput: TodoInput) => Promise<void>;
   fetchTodos: () => Promise<void>;
   fetchTodoById: (id: string) => Promise<void>;
+  updateTodoFromList: (id: string, todoInput: TodoInput) => Promise<void>;
   deleteTodoFromList: (id: string) => Promise<void>;
 }
 
-const useTodoStore = create<TodoStore>((set, get) => ({
+const useTodoStore = create<TodoStore>((set) => ({
   todos: [],
   selectedTodo: null,
 
@@ -45,6 +52,20 @@ const useTodoStore = create<TodoStore>((set, get) => ({
       set({ selectedTodo: todo });
     } catch (error) {
       console.error("fetchTodoById 에러 발생", error);
+      throw error;
+    }
+  },
+
+  // update
+  updateTodoFromList: async (id: string, todoInput: TodoInput) => {
+    try {
+      const updatedTodo = await updateTodo(id, todoInput);
+      set((prev) => ({
+        todos: prev.todos.map((todo) => (todo.id === id ? updatedTodo : todo)),
+        selectedTodo: updatedTodo,
+      }));
+    } catch (error) {
+      console.error("deleteTodoFromList 에러 발생", error);
       throw error;
     }
   },
