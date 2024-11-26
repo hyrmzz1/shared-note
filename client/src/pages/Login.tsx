@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import AuthBtn from "../components/ui/AuthBtn";
+import ActionBtn from "../components/ui/ActionBtn";
 import AuthInput from "../components/ui/AuthInput";
 import { useForm } from "react-hook-form";
 import { UserInput } from "../types/user";
@@ -51,10 +51,7 @@ const Login = () => {
 
   return (
     <>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col space-y-4 my-6"
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className="form-base my-6">
         <AuthInput
           type="email"
           placeholder="이메일"
@@ -84,7 +81,7 @@ const Login = () => {
             minLength: { value: 8, message: "비밀번호는 8자 이상입니다." },
           })}
         />
-        <AuthBtn text="로그인" disabled={isSubmitting} />
+        <ActionBtn text="로그인" disabled={isSubmitting} />
       </form>
 
       <div className="flex justify-center text-sm text-text_sub">

@@ -3,6 +3,8 @@ import useTodoAppStore from "../../stores/useTodoAppStore";
 import useTodoStore from "../../stores/useTodoStore";
 import { TodoInput } from "../../types/todos";
 import { useForm } from "react-hook-form";
+import ActionBtn from "./ActionBtn";
+import CancelIcon from "../../assets/cancel.svg?react";
 
 interface TodoDetailsViewProps {
   todoId: string;
@@ -82,17 +84,20 @@ const TodoDetailsView = ({ todoId }: TodoDetailsViewProps) => {
   }, [todoId]);
 
   return (
-    <>
+    <div className="flex flex-col items-end w-full h-full">
       <button
         onClick={() => {
           setViewMode("list");
           setSelectedTodoId(null);
         }}
       >
-        X
+        <CancelIcon className="w-4 h-4" />
       </button>
       {isEditing ? (
-        <form onSubmit={handleSubmit(handleUpdate)}>
+        <form
+          onSubmit={handleSubmit(handleUpdate)}
+          className="form-base mt-4 w-full h-full"
+        >
           <input
             type="text"
             placeholder="제목을 입력해주세요."
@@ -100,58 +105,55 @@ const TodoDetailsView = ({ todoId }: TodoDetailsViewProps) => {
             aria-invalid={
               isSubmitted ? (errors.title ? true : false) : undefined
             }
-            className={`appearance-none focus:outline-none border rounded-md w-full px-4 py-5 ${
-              errors.title ? "border-red focus:border-red" : "focus:border-blue"
+            className={`input-base ${
+              errors.title ? "input-error" : "input-normal"
             }`}
           ></input>
-          <input
-            type="text"
+          <textarea
             placeholder="내용을 입력해주세요."
             {...register("content", { required: true })}
             aria-invalid={
               isSubmitted ? (errors.content ? true : false) : undefined
             }
-            className={`appearance-none focus:outline-none border rounded-md w-full px-4 py-5 ${
-              errors.content
-                ? "border-red focus:border-red"
-                : "focus:border-blue"
+            className={`input-base textarea-base ${
+              errors.content ? "input-error" : "input-normal"
             }`}
-          ></input>
-          <button
-            type="button"
-            onClick={() => {
-              setIsEditing(false);
-            }}
-          >
-            취소
-          </button>
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="rounded-md px-4 py-5 focus:border-blue border"
-          >
-            수정
-          </button>
+          ></textarea>
+          <div className="flex-row-end">
+            <ActionBtn
+              type="button"
+              onClick={() => {
+                setIsEditing(false);
+              }}
+              disabled={isSubmitting}
+              text="취소"
+            />
+            <ActionBtn disabled={isSubmitting} text="수정 완료" />
+          </div>
         </form>
       ) : (
-        <>
-          <div>
+        <div className="form-base mt-4 w-full h-full">
+          <div className="grow">
             <h1 className="font-bold text-lg">{selectedTodo?.title}</h1>
             <h3>{selectedTodo?.content}</h3>
           </div>
-          <div className="flex justify-end">
-            <button
+          <div className="flex-row-end">
+            <ActionBtn
+              type="button"
               onClick={() => {
                 handleDelete();
               }}
-            >
-              삭제하기
-            </button>
-            <button onClick={() => setIsEditing(true)}>수정하기</button>
+              text="삭제하기"
+            />
+            <ActionBtn
+              type="button"
+              onClick={() => setIsEditing(true)}
+              text="수정하기"
+            />
           </div>
-        </>
+        </div>
       )}
-    </>
+    </div>
   );
 };
 

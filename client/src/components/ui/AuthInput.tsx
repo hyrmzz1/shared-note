@@ -18,11 +18,7 @@ const AuthInput = forwardRef<HTMLInputElement, AuthInputProps>((props, ref) => {
         placeholder={placeholder}
         ref={ref}
         autoComplete="off"
-        className={`appearance-none bg-gray50 focus:bg-white focus:outline-none border rounded-md w-full px-4 py-5 ${
-          isError
-            ? "text-text_error border-red focus:border-red"
-            : "text-text_default border-gray400 focus:border-blue"
-        }`}
+        className={`input-base ${isError ? "input-error" : "input-normal"}`}
         {...rest}
       ></input>
 
