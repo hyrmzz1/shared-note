@@ -5,7 +5,7 @@ const TodoLayout = () => {
   return (
     <div className="flex flex-col h-screen">
       <Gnb />
-      <main className="flex-grow flex justify-center items-center bg-gray200">
+      <main className="flex-grow flex justify-center items-center overflow-hidden bg-gray200">
         <Outlet />
       </main>
     </div>

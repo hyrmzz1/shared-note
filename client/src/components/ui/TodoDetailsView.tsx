@@ -84,7 +84,7 @@ const TodoDetailsView = ({ todoId }: TodoDetailsViewProps) => {
   }, [todoId]);
 
   return (
-    <div className="flex flex-col items-end w-full h-full">
+    <div className="flex flex-col items-end w-full h-full text-text_default">
       <button
         onClick={() => {
           setViewMode("list");
@@ -96,7 +96,7 @@ const TodoDetailsView = ({ todoId }: TodoDetailsViewProps) => {
       {isEditing ? (
         <form
           onSubmit={handleSubmit(handleUpdate)}
-          className="form-base mt-4 w-full h-full"
+          className="form-base grow w-full mt-4"
         >
           <input
             type="text"
@@ -132,10 +132,12 @@ const TodoDetailsView = ({ todoId }: TodoDetailsViewProps) => {
           </div>
         </form>
       ) : (
-        <div className="form-base mt-4 w-full h-full">
-          <div className="grow">
-            <h1 className="font-bold text-lg">{selectedTodo?.title}</h1>
-            <h3>{selectedTodo?.content}</h3>
+        <div className="form-base w-full h-full mt-4 overflow-hidden">
+          <div className="flex flex-col grow space-y-2 overflow-hidden">
+            <p className="font-bold text-xl">{selectedTodo?.title}</p>
+            <div className="grow overflow-y-auto whitespace-pre-wrap break-words">
+              {selectedTodo?.content}
+            </div>
           </div>
           <div className="flex-row-end">
             <ActionBtn
