@@ -16,7 +16,12 @@ const Gnb = () => {
         <a href="https://github.com/hyrmzz1/auth-todo.git" target="_blank">
           <GithubIcon className="w-7 h-7" />
         </a>
-        <p className="font-bold text-[1.5rem]">Shared Note</p>
+        <p
+          className="font-bold text-[1.5rem] cursor-pointer"
+          onClick={() => navigate("/todos")}
+        >
+          Shared Note
+        </p>
       </div>
       <button
         onClick={handleLogout}
