@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  @apply text-text_default;
+}
+
 .form-base {
   @apply flex flex-col space-y-4;
 }

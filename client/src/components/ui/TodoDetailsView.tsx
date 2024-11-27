@@ -84,7 +84,7 @@ const TodoDetailsView = ({ todoId }: TodoDetailsViewProps) => {
   }, [todoId]);
 
   return (
-    <div className="flex flex-col items-end w-full h-full text-text_default">
+    <div className="flex flex-col items-end w-full h-full">
       <button
         onClick={() => {
           setViewMode("list");

@@ -2,13 +2,18 @@ import { Todo } from "../../types/todos";
 
 interface TodoItemProps {
   item: Todo;
+  isSelected: boolean;
 }
 
-const TodoItem = ({ item }: TodoItemProps) => {
+const TodoItem = ({ item, isSelected }: TodoItemProps) => {
   return (
-    <div>
-      <h1 className="font-bold text-lg">{item.title}</h1>
-      {/* <h3>{item.content}</h3> */}
+    // outline outline-offset-2 outline-blue
+    <div
+      className={`p-4 rounded-xl shadow-md bg-[#ebf1ff] hover:bg-[#d7e3ff] ${
+        isSelected ? "outline outline-offset-2 outline-blue" : ""
+      }`}
+    >
+      {item.title}
     </div>
   );
 };

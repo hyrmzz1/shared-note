@@ -40,7 +40,7 @@ const TodoApp = () => {
 
   return (
     <div className="flex flex-1 justify-center h-full py-10 space-x-6">
-      <div className="w-[25rem] p-6 rounded-lg bg-white shadow-md">
+      <div className="w-[25rem] p-4 rounded-lg bg-white shadow-md">
         <TodoList />
       </div>
 
