@@ -7,18 +7,88 @@
   - **구현된 클라이언트(Todo App)는 프로젝트의 client/ 디렉토리에 위치합니다.**
 - 모든 유저가 하나의 Todo list를 공유하며(유저별로 분리된 Todo list 관리 기능을 제공하지 않습니다.), 전형적인 Todo list의 기능인 토글 기능이 요구사항에 포함되지 않아 프로젝트명을 **Shared Note**로 변경했습니다.
 
-### UI 구성
+### 주요 화면
 
-### 사용 기술
+<table>
+  <tr>
+    <td align="center">
+      <img alt="로그인 화면" src="https://github.com/user-attachments/assets/2bcb5b78-083c-4683-9063-b4cf50d45469">
+    </td>
+    <td align="center">
+      <img alt="로그인 비활성화 화면" src="https://github.com/user-attachments/assets/fed9f9c8-b04c-410d-8121-dd43772bdf44">
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><b>로그인 페이지 (<code>/auth/login</code>)</b></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">입력 필드가 비어 있거나 형식이 맞지 않으면 폼이 비활성화됩니다.<br>로그인 성공 시 토큰을 로컬 스토리지에 저장하고 루트 경로로 이동합니다.</td>
+  </tr>
+</table>
 
-<img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white">
-<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
-<img src="https://img.shields.io/badge/react router v6-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white">
-<img src="https://img.shields.io/badge/react hook form-EC5990?style=for-the-badge&logo=reacthookform&logoColor=white">
-<img src="https://img.shields.io/badge/zustand-DD6620?style=for-the-badge&logo=zustand&logoColor=white">
-<img src="https://img.shields.io/badge/tailwind css-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white">
-<img src="https://img.shields.io/badge/vite-646CFF?style=for-the-badge&logo=vite&logoColor=white">
-<img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white">
+<table>
+  <tr>
+    <td align="center">
+      <img width="1552" alt="회원가입 화면" src="https://github.com/user-attachments/assets/91c89df5-2b0e-4ad2-b675-1138329d204a">
+    </td>
+    <td align="center">
+      <img width="1552" alt="회원가입 비활성화 화면" src="https://github.com/user-attachments/assets/e217314f-a560-490a-9933-50cc14ffdd05">
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><b>회원가입 페이지 (<code>/auth/signup</code>)</b></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">입력 필드가 비어 있거나 형식이 맞지 않으면 폼이 비활성화됩니다.<br>비밀번호 확인 값이 일치하지 않을 경우에도 폼이 비활성화됩니다.</td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td align="center">
+      <img width="1552" alt="글 목록" src="https://github.com/user-attachments/assets/9824d809-3f09-4989-8c5b-eeff51e15786">
+    </td>
+    <td align="center">
+      <img width="1552" alt="글 작성 화면" src="https://github.com/user-attachments/assets/516f2ad4-d776-446a-9845-7d7caecacc59">
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><b>Todo 목록 및 추가 페이지 (<code>/todos</code>)</b></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">Todo 목록을 조회하거나, 새 Todo를 추가할 수 있습니다.<br>추가된 Todo는 실시간으로 목록에 반영됩니다.</td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td>
+      <img width="1552" alt="글 상세보기 화면" src="https://github.com/user-attachments/assets/42448532-904f-4f51-a695-e878c7eda1cd">
+    </td>
+    <td>
+      <img width="1552" alt="글 수정 화면" src="https://github.com/user-attachments/assets/da0e1cd8-f29e-4bc3-80da-96a3f0297fd5">
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><b>글 상세보기 (<code>/todos/:id</code>)</b></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">Todo의 제목과 내용을 확인할 수 있습니다.<br>수정하거나 삭제한 내용은 목록에 실시간으로 반영됩니다.</td>
+  </tr>
+</table>
+
+### 기술 스택
+
+| **분류**               | **기술**                                                                                                      |
+|-------------------------|--------------------------------------------------------------------------------------------------------------|
+| **언어**               | <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"> |
+| **프레임워크 및 라이브러리** | <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">         |
+| **라우팅**             | <img src="https://img.shields.io/badge/react router v6-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white"> |
+| **상태 관리**          | <img src="https://img.shields.io/badge/zustand-DD6620?style=for-the-badge&logo=zustand&logoColor=white">      |
+| **폼 관리 및 유효성 검사** | <img src="https://img.shields.io/badge/react hook form-EC5990?style=for-the-badge&logo=reacthookform&logoColor=white"> |
+| **스타일링**           | <img src="https://img.shields.io/badge/tailwind css-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white"> |
+| **빌드 도구**           | <img src="https://img.shields.io/badge/vite-646CFF?style=for-the-badge&logo=vite&logoColor=white">            |
+| **HTTP 클라이언트**     | <img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white">          |
 
 ### What I Learned
 
