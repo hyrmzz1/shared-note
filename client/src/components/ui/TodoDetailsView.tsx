@@ -3,6 +3,7 @@ import useTodoAppStore from "../../stores/useTodoAppStore";
 import useTodoStore from "../../stores/useTodoStore";
 import { TodoInput } from "../../types/todos";
 import { useForm } from "react-hook-form";
+import TodoForm from "./TodoForm";
 import ActionBtn from "./ActionBtn";
 import CancelIcon from "../../assets/cancel.svg?react";
 
@@ -21,12 +22,7 @@ const TodoDetailsView = ({ todoId }: TodoDetailsViewProps) => {
   const [loading, setLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { isSubmitting, isSubmitted, errors },
-    reset,
-  } = useForm<TodoInput>();
+  const { register, handleSubmit, formState, reset } = useForm<TodoInput>();
 
   const fetchTodo = async () => {
     if (!todoId || loading) return;
@@ -94,43 +90,14 @@ const TodoDetailsView = ({ todoId }: TodoDetailsViewProps) => {
         <CancelIcon className="w-4 h-4" />
       </button>
       {isEditing ? (
-        <form
-          onSubmit={handleSubmit(handleUpdate)}
-          className="form-base grow w-full mt-4"
-        >
-          <input
-            type="text"
-            placeholder="제목을 입력해주세요."
-            {...register("title", { required: true })}
-            aria-invalid={
-              isSubmitted ? (errors.title ? true : false) : undefined
-            }
-            className={`input-base ${
-              errors.title ? "input-error" : "input-normal"
-            }`}
-          ></input>
-          <textarea
-            placeholder="내용을 입력해주세요."
-            {...register("content", { required: true })}
-            aria-invalid={
-              isSubmitted ? (errors.content ? true : false) : undefined
-            }
-            className={`input-base textarea-base ${
-              errors.content ? "input-error" : "input-normal"
-            }`}
-          ></textarea>
-          <div className="flex-row-end">
-            <ActionBtn
-              type="button"
-              onClick={() => {
-                setIsEditing(false);
-              }}
-              disabled={isSubmitting}
-              text="취소"
-            />
-            <ActionBtn disabled={isSubmitting} text="수정 완료" />
-          </div>
-        </form>
+        <TodoForm
+          register={register}
+          handleSubmit={handleSubmit}
+          onSubmit={handleUpdate}
+          formState={formState}
+          onCancel={() => setIsEditing(false)}
+          isEditing={true}
+        />
       ) : (
         <div className="form-base w-full h-full mt-4 overflow-hidden">
           <div className="flex flex-col grow space-y-2 overflow-hidden">
