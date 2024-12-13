@@ -21,6 +21,7 @@ const TodoList = () => {
       <div className="flex justify-between p-2 border-b-2 border-divider_default">
         <p className="font-semibold">Total: {total}</p>
         <button
+          aria-label="Create a new post"
           onClick={() => {
             setViewMode("form");
             setSelectedTodoId(null);

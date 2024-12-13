@@ -82,6 +82,7 @@ const TodoDetailsView = ({ todoId }: TodoDetailsViewProps) => {
   return (
     <div className="flex flex-col items-end w-full h-full">
       <button
+        aria-label="Close detailed view"
         onClick={() => {
           setViewMode("list");
           setSelectedTodoId(null);
