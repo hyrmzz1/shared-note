@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import TodoItem from "./TodoItem";
 import useTodoStore from "../../stores/useTodoStore";
 import useTodoAppStore from "../../stores/useTodoAppStore";
+import IconButton from "./IconButton";
 import AddIcon from "../../assets/add.svg?react";
 
 const TodoList = () => {
@@ -20,15 +21,14 @@ const TodoList = () => {
     <div className="flex flex-col h-full">
       <div className="flex justify-between p-2 border-b-2 border-divider_default">
         <p className="font-semibold">Total: {total}</p>
-        <button
-          aria-label="Create a new post"
+        <IconButton
+          label="Create a new post"
           onClick={() => {
             setViewMode("form");
             setSelectedTodoId(null);
           }}
-        >
-          <AddIcon className="w-4 h-4" />
-        </button>
+          icon={AddIcon}
+        />
       </div>
 
       <div className="grow overflow-y-auto flex flex-col space-y-4 pt-4 px-2">

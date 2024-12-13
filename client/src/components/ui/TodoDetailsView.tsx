@@ -5,6 +5,7 @@ import { TodoInput } from "../../types/todos";
 import { useForm } from "react-hook-form";
 import TodoForm from "./TodoForm";
 import ActionBtn from "./ActionBtn";
+import IconButton from "./IconButton";
 import CancelIcon from "../../assets/cancel.svg?react";
 
 interface TodoDetailsViewProps {
@@ -81,15 +82,14 @@ const TodoDetailsView = ({ todoId }: TodoDetailsViewProps) => {
 
   return (
     <div className="flex flex-col items-end w-full h-full">
-      <button
-        aria-label="Close detailed view"
+      <IconButton
+        label="Close detailed view"
         onClick={() => {
           setViewMode("list");
           setSelectedTodoId(null);
         }}
-      >
-        <CancelIcon className="w-4 h-4" />
-      </button>
+        icon={CancelIcon}
+      />
       {isEditing ? (
         <TodoForm
           register={register}
