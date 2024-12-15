@@ -76,15 +76,14 @@
     <td colspan="2" align="center">Todo의 제목과 내용을 확인할 수 있습니다.<br>수정하거나 삭제한 내용은 목록에 실시간으로 반영됩니다.</td>
   </tr>
 </table>
-
+  
 ### 기술 스택
 
 | **분류**               | **기술**                                                                                                      |
 |-------------------------|--------------------------------------------------------------------------------------------------------------|
-| **언어**               | <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"> |
-| **프레임워크 및 라이브러리** | <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">         |
+| **언어 / 프레임워크 및 라이브러리**               | <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> |
 | **라우팅**             | <img src="https://img.shields.io/badge/react router v6-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white"> |
-| **상태 관리**          | <img src="https://img.shields.io/badge/zustand-DD6620?style=for-the-badge&logo=zustand&logoColor=white">      |
+| **상태 관리**          | <img src="https://img.shields.io/badge/reactquery-FF4154?style=for-the-badge&logo=reactquery&logoColor=white"> <img src="https://img.shields.io/badge/zustand-DD6620?style=for-the-badge&logo=zustand&logoColor=white">     |
 | **폼 관리 및 유효성 검사** | <img src="https://img.shields.io/badge/react hook form-EC5990?style=for-the-badge&logo=reacthookform&logoColor=white"> |
 | **스타일링**           | <img src="https://img.shields.io/badge/tailwind css-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white"> |
 | **빌드 도구**           | <img src="https://img.shields.io/badge/vite-646CFF?style=for-the-badge&logo=vite&logoColor=white">            |
@@ -94,12 +93,11 @@
 
 > 프로젝트 구현 과정에서 배운 것들에 대해 작성한 포스팅입니다.
 
-- [회고]()
-- [렌더링 최적화 - React memo를 적용해 리렌더링이 필요없는 컴포넌트 골라내기]()
-- [form을 공용 컴포넌트로 분리하기 - 재사용 가능한 React-hook-form 컴포넌트 설계]()
+- [React-hook-form 적용기 : 공통 컴포넌트 설계 및 상태 동기화 문제 해결](https://hyrmzz1.tistory.com/169)
+- [server state 관리 방식을 Zustand에서 React Query로 마이그레이션해보았답니다](https://hyrmzz1.tistory.com/171)
+- [두유노 '리액트 에러 바운더리'?: ErrorBoundary, Suspense 적용하기](https://hyrmzz1.tistory.com/168)
 - [왜 뒤로가기가 한 단계밖에 안될까?]()
-- [react query 적용기]()
-- [react error boundary 적용기]()
+- [렌더링 최적화: React memo를 적용해 리렌더링이 필요없는 컴포넌트 골라내기]()
 
 ## 요구사항
 
