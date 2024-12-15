@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
+import {
+  useDeleteTodo,
+  useGetTodoById,
+  useUpdateTodo,
+} from "../../hooks/useTodos";
 import useTodoAppStore from "../../stores/useTodoAppStore";
-import useTodoStore from "../../stores/useTodoStore";
-import { TodoInput } from "../../types/todos";
 import { useForm } from "react-hook-form";
+import { TodoInput } from "../../types/todos";
 import TodoForm from "./TodoForm";
 import ActionBtn from "./ActionBtn";
 import IconButton from "./IconButton";
@@ -15,48 +19,35 @@ interface TodoDetailsViewProps {
 const TodoDetailsView = ({ todoId }: TodoDetailsViewProps) => {
   const setViewMode = useTodoAppStore((state) => state.setViewMode);
   const setSelectedTodoId = useTodoAppStore((state) => state.setSelectedTodoId);
-  const fetchTodoById = useTodoStore((state) => state.fetchTodoById);
-  const selectedTodo = useTodoStore((state) => state.selectedTodo);
-  const deleteTodoFromList = useTodoStore((state) => state.deleteTodoFromList);
-  const updateTodoFromList = useTodoStore((state) => state.updateTodoFromList);
-
-  const [loading, setLoading] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
+  const { data: selectedTodo } = useGetTodoById(todoId); // TODO) 로딩 처리 로직 추가
+  const updateMutation = useUpdateTodo();
+  const deleteMutation = useDeleteTodo();
 
   const { register, handleSubmit, formState, reset } = useForm<TodoInput>();
+  const [isEditing, setIsEditing] = useState(false);
 
-  const fetchTodo = async () => {
-    if (!todoId || loading) return;
-    setLoading(true);
-
-    try {
-      await fetchTodoById(todoId);
-    } catch (error) {
-      console.log("Error fetching todo:", error);
-    } finally {
-      setLoading(false);
-    }
+  const resetViewState = () => {
+    setViewMode("list");
+    setSelectedTodoId(null);
   };
 
   const handleUpdate = async (data: TodoInput) => {
-    if (!todoId) return;
-
     try {
-      await updateTodoFromList(todoId, data);
+      await updateMutation.mutateAsync({ id: todoId, data });
       setIsEditing(false);
     } catch (error) {
-      alert("에러 발생! 다시 시도해주세요.");
+      console.log("Error updating todo:", error);
+      alert("수정 실패! 다시 시도해주세요.");
     }
   };
 
   const handleDelete = async () => {
-    if (!todoId) return;
-
     try {
-      await deleteTodoFromList(todoId);
-      setViewMode("list");
+      await deleteMutation.mutateAsync(todoId);
+      resetViewState();
     } catch (error) {
       console.log("Error deleting todo:", error);
+      alert("삭제 실패! 다시 시도해주세요.");
     }
   };
 
@@ -75,19 +66,11 @@ const TodoDetailsView = ({ todoId }: TodoDetailsViewProps) => {
     setIsEditing(false);
   }, [selectedTodo]);
 
-  // todoId 변경 시 데이터 로드
-  useEffect(() => {
-    fetchTodo();
-  }, [todoId]);
-
   return (
     <div className="flex flex-col items-end w-full h-full">
       <IconButton
         label="Close detailed view"
-        onClick={() => {
-          setViewMode("list");
-          setSelectedTodoId(null);
-        }}
+        onClick={resetViewState}
         icon={CancelIcon}
       />
       {isEditing ? (

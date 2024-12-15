@@ -1,21 +1,16 @@
-import { useEffect } from "react";
-import TodoItem from "./TodoItem";
-import useTodoStore from "../../stores/useTodoStore";
+import { useGetTodos } from "../../hooks/useTodos";
 import useTodoAppStore from "../../stores/useTodoAppStore";
+import TodoItem from "./TodoItem";
 import IconButton from "./IconButton";
 import AddIcon from "../../assets/add.svg?react";
 
 const TodoList = () => {
-  const todos = useTodoStore((state) => state.todos);
-  const fetchTodos = useTodoStore((state) => state.fetchTodos);
+  const { data: todos = [] } = useGetTodos(); // data 속성을 todos라는 변수로 할당
   const setViewMode = useTodoAppStore((state) => state.setViewMode);
   const setSelectedTodoId = useTodoAppStore((state) => state.setSelectedTodoId);
   const selectedTodoId = useTodoAppStore((state) => state.selectedTodoId);
-  const total = todos.length;
 
-  useEffect(() => {
-    fetchTodos();
-  }, []);
+  const total = todos.length;
 
   return (
     <div className="flex flex-col h-full">
