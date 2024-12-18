@@ -12,8 +12,8 @@ export const useGetTodos = () => {
   return useQuery<Todo[]>({
     queryKey: ["todos"], // 캐시 키
     queryFn: getTodos, // 데이터 가져오는 함수
-    staleTime: 1000 * 60 * 5, // 데이터 신선도 유지 시간 (5분)
-    // TODO) 에러 처리
+    staleTime: 1000 * 60 * 5, // 데이터 신선도 유지 시간 (default: 0)
+    gcTime: 1000 * 60 * 10, // 캐시 데이터가 메모리에 남아있는 시간 (default: 1000 * 60 * 5)
   });
 };
 
@@ -23,7 +23,6 @@ export const useGetTodoById = (id: string) => {
     queryFn: () => getTodoById(id),
     enabled: !!id, // id가 있을 때만 실행
     staleTime: 1000 * 60,
-    // TODO) 에러 처리
   });
 };
 
