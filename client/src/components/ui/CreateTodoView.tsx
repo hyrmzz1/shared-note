@@ -11,13 +11,8 @@ const CreateTodoView = () => {
   const { register, handleSubmit, reset, formState } = useForm<TodoInput>();
 
   const onSubmit = async (data: TodoInput) => {
-    try {
-      await createMutation.mutateAsync(data);
-      reset(); // 폼 초기화
-    } catch (error) {
-      console.log("Error creating todo:", error);
-      alert("추가 실패! 다시 시도해주세요.");
-    }
+    await createMutation.mutateAsync(data);
+    reset(); // 폼 초기화
   };
 
   return (

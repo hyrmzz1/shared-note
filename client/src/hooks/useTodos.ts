@@ -34,9 +34,6 @@ export const useCreateTodo = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] }); // 목록 갱신 (새로고침 없이 새 데이터 즉시 반영)
     },
-    onError: (error) => {
-      console.error("Error creating todo:", error);
-    },
   });
 };
 
@@ -50,9 +47,6 @@ export const useUpdateTodo = () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
       queryClient.invalidateQueries({ queryKey: ["todos", id] }); // 상세 목록 갱신
     },
-    onError: (error) => {
-      console.error("Error updating todo:", error);
-    },
   });
 };
 
@@ -63,9 +57,6 @@ export const useDeleteTodo = () => {
     mutationFn: (id: string) => deleteTodo(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
-    },
-    onError: (error) => {
-      console.error("Error deleting todo:", error);
     },
   });
 };

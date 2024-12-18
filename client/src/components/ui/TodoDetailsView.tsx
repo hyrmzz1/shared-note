@@ -32,23 +32,13 @@ const TodoDetailsView = ({ todoId }: TodoDetailsViewProps) => {
   };
 
   const handleUpdate = async (data: TodoInput) => {
-    try {
-      await updateMutation.mutateAsync({ id: todoId, data });
-      setIsEditing(false);
-    } catch (error) {
-      console.log("Error updating todo:", error);
-      alert("수정 실패! 다시 시도해주세요.");
-    }
+    await updateMutation.mutateAsync({ id: todoId, data });
+    setIsEditing(false);
   };
 
   const handleDelete = async () => {
-    try {
-      await deleteMutation.mutateAsync(todoId);
-      resetViewState();
-    } catch (error) {
-      console.log("Error deleting todo:", error);
-      alert("삭제 실패! 다시 시도해주세요.");
-    }
+    await deleteMutation.mutateAsync(todoId);
+    resetViewState();
   };
 
   // 수정 모드 초기값 설정
