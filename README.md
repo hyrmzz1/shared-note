@@ -95,9 +95,7 @@
 
 - [React-hook-form 적용기 : 공통 컴포넌트 설계 및 상태 동기화 문제 해결](https://hyrmzz1.tistory.com/169)
 - [server state 관리 방식을 Zustand에서 React Query로 마이그레이션해보았답니다](https://hyrmzz1.tistory.com/171)
-- [두유노 '리액트 에러 바운더리'?: ErrorBoundary, Suspense 적용하기](https://hyrmzz1.tistory.com/168)
-- [왜 뒤로가기가 한 단계밖에 안될까?]()
-- [렌더링 최적화: React memo를 적용해 리렌더링이 필요없는 컴포넌트 골라내기]()
+- [두유노 '리액트 에러 바운더리'?: 에러 핸들링 With React-Query](https://hyrmzz1.tistory.com/168)
 
 ## 요구사항
 
